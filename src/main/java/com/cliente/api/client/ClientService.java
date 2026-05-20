@@ -1,5 +1,7 @@
-package com.cliente.api;
+package com.cliente.api.client;
 
+import com.cliente.api.client.ClientRepository;
+import com.cliente.api.client.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

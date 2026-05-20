@@ -1,4 +1,4 @@
-package com.cliente.api;
+package com.cliente.api.client;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

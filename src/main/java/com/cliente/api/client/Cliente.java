@@ -1,13 +1,10 @@
-package com.cliente.api;
+package com.cliente.api.client;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -16,6 +13,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Cliente {
 
   @Id
@@ -34,8 +32,10 @@ public class Cliente {
   private double saldoPendiente;
   private LocalDate fechaAlta;
 
-  private boolean esClienteReciente(int diasUmbral){
+  private final int DIAS_UMBRAL=30;
+
+  private boolean esClienteReciente(){
     if(fechaAlta == null) return false;
-    return !fechaAlta.isBefore(LocalDate.now().minusDays(diasUmbral));
+    return !fechaAlta.isBefore(LocalDate.now().minusDays(DIAS_UMBRAL));
   }
 }

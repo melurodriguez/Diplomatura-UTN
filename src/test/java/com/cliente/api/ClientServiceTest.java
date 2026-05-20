@@ -3,6 +3,9 @@ package com.cliente.api;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.cliente.api.client.ClientRepository;
+import com.cliente.api.client.ClientService;
+import com.cliente.api.client.Cliente;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
