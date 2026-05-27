@@ -1,9 +1,6 @@
 package com.cliente.api.client;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -18,7 +15,8 @@ public class Cliente {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  @Column(name = "client_id")
+  private Long clientId;
 
   private String nombre;
   private String apellido;
