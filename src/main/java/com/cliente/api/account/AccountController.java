@@ -37,4 +37,9 @@ public class AccountController {
   public void deleteAccount(@PathVariable Long accountId){
     accountService.deleteAccount(accountId);
   }
+
+  @GetMapping("/{accountId}/pesificado")
+  public double pesificarCuenta(@PathVariable Long accountId){
+    return accountService.pesificar(accountId);
+  }
 }

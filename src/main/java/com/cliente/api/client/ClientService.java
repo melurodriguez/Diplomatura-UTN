@@ -20,7 +20,7 @@ public class ClientService {
   }
 
   public Cliente getClientById(long id){
-    return clientRepository.findById(id).orElse(null);
+    return clientRepository.findById(id).orElseThrow(()->new ClientNotFoundException("Cliente no encontrado con ID: " + id));
   }
 
   public Cliente addClient(Cliente cliente){

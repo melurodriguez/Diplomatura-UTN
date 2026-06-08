@@ -83,6 +83,20 @@ class ClientServiceTest {
     assertInstanceOf(ClienteEmpresa.class, resultado);
     verify(clientRepository, times(1)).findById(2L);
   }
+  @DisplayName("Dado un id inexistente, cuando se ejecuta el metodo se debe lanzar una excepcion correspondiente")
+  @Test
+  void whenGetByInvalidId_thenThrowClienteNotFoundException(){
+    when(clientRepository.findById(5L)).thenReturn(Optional.empty());
+
+    Long invalidID=5L;
+    ClientNotFoundException exception= assertThrows(ClientNotFoundException.class, ()->{
+      clientService.getClientById(invalidID);
+    });
+
+    assertEquals("Cliente no encontrado con ID: 5" , exception.getMessage());
+
+    verify(clientRepository, times(1)).findById(5L);
+  }
 
   // ==========================================
   // 2. TESTS DE CREACIÓN (POST)
@@ -162,6 +176,23 @@ class ClientServiceTest {
     verify(clientRepository, times(1)).save(any(ClienteEmpresa.class));
   }
 
+  @DisplayName("Dado un id inexistente, cuando se ejecuta el metodo se debe lanzar una excepcion correspondiente")
+  @Test
+  void whenUpdateWithInvalidId_thenThrowClienteNotFoundException(){
+    when(clientRepository.findById(5L)).thenReturn(Optional.empty());
+
+    ClientePersonaFisica clienteConNuevosDatos = ClientePersonaFisica.builder()
+            .clientId(5L).nombre("Martin").build();
+
+    ClientNotFoundException exception= assertThrows(ClientNotFoundException.class, ()->{
+      clientService.updateClient(clienteConNuevosDatos);
+    });
+
+    assertEquals("Cliente no encontrado con ID: 5" , exception.getMessage());
+
+    verify(clientRepository, times(1)).findById(5L);
+  }
+
   // ==========================================
   // 4. TEST DE ELIMINACIÓN (DELETE)
   // ==========================================
@@ -175,6 +206,21 @@ class ClientServiceTest {
 
     verify(clientRepository, times(1)).findById(1L);
     verify(clientRepository, times(1)).deleteById(1L);
+  }
+  @DisplayName("Dado un id inválido, cuando se ejecuta el metodo se debe lanzar la excepción correspondiente")
+  @Test
+  void whenDeleteByInvalidId_thenThrowsException(){
+    when(clientRepository.findById(5L)).thenReturn(Optional.empty());
+
+    Long invalidID=5L;
+    ClientNotFoundException exception= assertThrows(ClientNotFoundException.class, ()->{
+            clientService.deleteClient(invalidID);
+    });
+
+    assertEquals("No se encontró el usuario con ID: 5" , exception.getMessage());
+
+    verify(clientRepository, times(1)).findById(5L);
+    verify(clientRepository, never()).deleteById(invalidID);
   }
 
 }
