@@ -19,4 +19,6 @@ public class DolarApiController {
   public Dolar getDolarPorTipo(@PathVariable String tipo_dolar){
     return dolarApiService.obtenerDolar(tipo_dolar);
   }
+
+
 }

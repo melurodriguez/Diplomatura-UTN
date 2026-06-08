@@ -23,4 +23,5 @@ public class DolarApiService {
   public Dolar obtenerDolar(String tipoDolar){
     return dolarClient.getDolar(tipoDolar);
   }
+
 }

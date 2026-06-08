@@ -2,6 +2,8 @@ package com.cliente.api.account;
 
 import com.cliente.api.client.ClientService;
 import com.cliente.api.client.Cliente;
+import com.cliente.api.dolar.Dolar;
+import com.cliente.api.dolar.DolarApiService;
 import com.cliente.api.dolar.DolarClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +20,7 @@ public class AccountService {
   @Autowired
   private ClientService clientService;
   @Autowired
-  private DolarClient dolarClient;
+  private DolarApiService dolarApiService;
 
   public List<Account> getAllAccounts(){
     return accountRepository.findAll();
@@ -52,10 +54,20 @@ public class AccountService {
     accountRepository.deleteById(id);
   }
 
-  public void changeCurrencyType(Account account, Currency newCurrency){
-    if(account.getCurrency().equals(Currency.USD) && newCurrency.equals(Currency.ARS)){
-      dolarClient.getDolar("blue");
-      account.setCurrency(newCurrency);
+  public double pesificar(Long accountId){
+
+    Account account= accountRepository.findById(accountId)
+            .orElseThrow(()-> new AccountNotFoundException("No se encontró la cuenta con ID: " + accountId));
+
+    if(account.getCurrency() != Currency.USD){
+      return account.getBalance();
     }
+
+    Dolar valorDolarMEP=dolarApiService.obtenerDolar("bolsa");
+
+    if(valorDolarMEP == null ){
+      throw  new RuntimeException("No se pudo obtener el valor del Dólar MEP actual");
+    }
+    return account.getBalance()* valorDolarMEP.getCompra();
   }
 }
