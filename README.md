@@ -1,6 +1,3 @@
-¡Mil disculpas! Aquí tienes el contenido del archivo README.md completamente limpio, formateado y listo para usar:
-
-Markdown
 # Diplomatura-UTN: API Fintech - Gestión de Clientes y Cuentas
 
 ## 📘 Descripción del Proyecto
