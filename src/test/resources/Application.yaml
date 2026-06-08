@@ -8,3 +8,6 @@ spring:
     hibernate:
     ddl-auto: create-drop
     show-sql: true
+dolar:
+   api:
+     url: https://dolarapi.com/v1/dolares/

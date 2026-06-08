@@ -5,6 +5,7 @@ import com.cliente.api.client.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -23,6 +24,7 @@ public class ClientService {
   }
 
   public Cliente addClient(Cliente cliente){
+    cliente.setFechaAlta(LocalDate.now());
     return clientRepository.save(cliente);
   }
   public Cliente updateClient(Cliente cliente){

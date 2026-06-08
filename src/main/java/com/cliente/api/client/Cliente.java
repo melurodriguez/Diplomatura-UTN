@@ -2,16 +2,15 @@ package com.cliente.api.client;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class Cliente {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@SuperBuilder
+public abstract class Cliente {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,13 +18,9 @@ public class Cliente {
   private Long clientId;
 
   private String nombre;
-  private String apellido;
-  private String dni;
   private String direccion;
   private String telefono;
   private String email;
-
-  private String tipoCliente; //"PERSONA_FISICA" "EMPRESA"
   private boolean activo;
   private double saldoPendiente;
   private LocalDate fechaAlta;

@@ -1,16 +1,18 @@
 package com.cliente.api.account;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/accounts")
 public class AccountController {
 
+  @Autowired
   private AccountService accountService;
 
-  @GetMapping("/")
+  @GetMapping
   public List<Account> getAllAccounts(){
     return accountService.getAllAccounts();
   }
@@ -20,13 +22,14 @@ public class AccountController {
     return accountService.getAccountById(accountId);
   }
 
-  @PostMapping("/{account}")
-  public Account creteAccount(@PathVariable Account account){
+  @PostMapping
+  public Account createAccount(@RequestBody Account account){ // Cambiado a @RequestBody
     return accountService.createAccount(account);
   }
 
   @PutMapping("/{accountId}")
-  public Account updateAccount(@PathVariable Long accountId, Account account){
+  public Account updateAccount(@PathVariable Long accountId, @RequestBody Account account){
+    account.setAccountId(accountId);
     return accountService.updateAccount(account);
   }
 

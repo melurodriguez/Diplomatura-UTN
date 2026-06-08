@@ -22,7 +22,8 @@ public class Account {
   private Cliente cliente;
   private String accountNur;
   private String type;
-  private String currency;
+  @Enumerated(EnumType.STRING)
+  private Currency currency;
   private double balance;
   @Enumerated(EnumType.STRING)
   private AccountStatus status;
